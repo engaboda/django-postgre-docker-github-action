@@ -1,9 +1,10 @@
-ame: do docker Pipeline
+ame: do docker Production Deploy
 
 on:
   push:
-    - develop
-    - main
+    branches:
+      - develop
+      - main
 
 jobs:
   Deploy-To-AWS-Test:

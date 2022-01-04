@@ -1,4 +1,4 @@
-name: Kunafa Pipeline
+name: do docker ci Pipeline
 on: [push]
 jobs:
   Install-Requirements-Actions-And-Linting-And-Test-With-Cache:
