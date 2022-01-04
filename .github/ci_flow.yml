@@ -1,0 +1,26 @@
+name: Kunafa Pipeline
+on: [push]
+jobs:
+  Install-Requirements-Actions-And-Linting-And-Test-With-Cache:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout current branch
+      uses: actions/checkout@v2
+
+    - run: echo "cache python requirements"
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+        cache: 'pip'
+
+    - name: Start installing Kunafa Packages from requirements.txt
+      run: pip install -r requirements.txt
+
+    - name: start linting our code using flake8
+      run: flake8 khazen
+
+    - name: start linting our code using isort
+      run: isort --recursive --check-only --diff khazen -sp tox.ini
+
+    - name: run django test
+      run: python manage.py test --noinput

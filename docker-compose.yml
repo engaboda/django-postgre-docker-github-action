@@ -1,0 +1,29 @@
+version: "3.9"
+   
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=kunafa_db
+      - POSTGRES_USER=kunafa_user
+      - POSTGRES_PASSWORD=kunafa_password
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports: 
+      - "5432:5432"
+  web:
+    build: .
+    command: >
+      bash -c "python do_docker/manage.py migrate --noinput
+      && python do_docker/manage.py collectstatic --noinput
+      && python do_docker/manage.py runserver 0.0.0.0:8000"
+    environment:
+      - POSTGRES_DB=kunafa_db
+      - POSTGRES_USER=kunafa_user
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
