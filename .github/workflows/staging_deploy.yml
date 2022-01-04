@@ -1,4 +1,4 @@
-ame: do docker Production Deploy
+name: do docker Production Deploy
 
 on:
   push:
