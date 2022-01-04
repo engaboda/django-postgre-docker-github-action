@@ -18,12 +18,13 @@ jobs:
         DOCKER_USER: ${{secrets.DOCKER_USERNAME}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         DOCKER_REPO_NAME: do_docker_with_django
+  
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: build docker image
       run: docker build . --file Dockerfile --tag do_docker/django-prod:$(date +$s)
     - name: Docker push
-      run: docker push ${{secrets.DOCKER_USER}}/${{YOUR_DOCKER_HUB_REPO_NAME}}
+      run: docker push ${{secrets.DOCKER_USER}}/do_docker_with_django
 
     # - name: Log in to Docker Hub
     #   uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
